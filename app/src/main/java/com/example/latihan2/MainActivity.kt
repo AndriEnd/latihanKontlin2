@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     "ABACOT.@gmail.com",
                     "lampung"
                 )
-
+// Parcelable Class Person
                 val moveWithObjectintent = Intent(this@MainActivity,MoveWithObjectActivity::class.java)
                 moveWithObjectintent.putExtra(MoveWithObjectActivity.EXTRA_PERSON,person)
                 startActivity(moveWithObjectintent)        
