@@ -1,5 +1,6 @@
 package com.example.latihan2
 
+import android.content.Intent
 import android.os.Bundle
 import android.service.chooser.ChooserAction
 import android.view.View
@@ -10,19 +11,44 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-private lateinit var btnChoose:Button
-private lateinit var rgNumber: RadioGroup
+class MoveForResultActivity : AppCompatActivity(), View.OnClickListener  {
+    private lateinit var btnChoose: Button
+    private lateinit var rgNumber: RadioGroup
 
-class MoveForResultActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_SELECTED_VALUE = "extra_selected_value"
+        const val RESULT_OK = 110
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_move_for_result)
-        btnChoose=findViewById(R.id.btn_choose)
-        rgNumber=findViewById(R.id.rg_number)
 
+        btnChoose = findViewById(R.id.btn_choose)
+        rgNumber = findViewById(R.id.rg_number)
         btnChoose.setOnClickListener(this)
-        }
-
     }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btn_choose) {
+            if (rgNumber.checkedRadioButtonId > 0) {
+                var value = 0
+                when (rgNumber.checkedRadioButtonId) {
+                    R.id.rb_50 -> value = 50
+
+                    R.id.rb_100 -> value = 100
+
+                    R.id.rb_150 -> value = 150
+
+                    R.id.rb_200 -> value = 200
+                }
+
+                val resultIntent = Intent()
+                resultIntent.putExtra(EXTRA_SELECTED_VALUE, value)
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
+        }
+    }
+}
 
